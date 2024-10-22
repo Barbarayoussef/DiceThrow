@@ -8,6 +8,7 @@ import android.view.ViewGroup
 import android.widget.TextView
 import kotlin.random.Random
 const val DIESIDE = "sidenumber"
+val Dice_Key: String= "Dice_key"
 class DieFragment : Fragment() {
 
 
@@ -15,6 +16,8 @@ class DieFragment : Fragment() {
     lateinit var dieTextView: TextView
 
     var dieSides: Int = 6
+    var diceValue: Int=-1
+
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -37,15 +40,30 @@ class DieFragment : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        throwDie()
-        view.setOnClickListener{
-            throwDie()
+        savedInstanceState?.run {
+            diceValue=getInt(Dice_Key)
         }
+        if(diceValue==-1)
+        { throwDie()}
+        else
+        {
+            dieTextView.text=diceValue.toString()
+        }
+
     }
 
     fun throwDie() {
-        dieTextView.text = ((Random.nextInt(dieSides))+1).toString()
+        diceValue=Random.nextInt(dieSides)+1
+        dieTextView.text = diceValue.toString()
+
     }
+
+    override fun onSaveInstanceState(outState: Bundle) {
+        super.onSaveInstanceState(outState)
+        outState.putInt(Dice_Key,diceValue)
+
+    }
+
     companion object{//our refernce to get a static version
         fun newInstance (size: Int) : DieFragment{
             val fragment= DieFragment()

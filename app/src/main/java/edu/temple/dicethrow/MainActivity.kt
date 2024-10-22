@@ -9,6 +9,8 @@ class MainActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
 
+
+
         if (supportFragmentManager.findFragmentById(R.id.diceContainer) !is DieFragment) {
 
             val dieFragment = DieFragment.newInstance(20)
@@ -17,6 +19,7 @@ class MainActivity : AppCompatActivity() {
                 .add(R.id.diceContainer, dieFragment)
                 .commit()
         }
+
 
         findViewById<Button>(R.id.rollDiceButton).setOnClickListener{
             ( supportFragmentManager
