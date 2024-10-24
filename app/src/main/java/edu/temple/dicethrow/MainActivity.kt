@@ -4,10 +4,12 @@ import android.os.Bundle
 import android.widget.Button
 import androidx.appcompat.app.AppCompatActivity
 
-class MainActivity : AppCompatActivity() {
+class MainActivity : AppCompatActivity(), ButtonFragment.ButtonInterface {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
+
+
 
         if (supportFragmentManager.findFragmentById(R.id.diceContainer) !is DieFragment) {
 
@@ -18,10 +20,16 @@ class MainActivity : AppCompatActivity() {
                 .commit()
         }
 
-        findViewById<Button>(R.id.rollDiceButton).setOnClickListener{
+
+       /* findViewById<Button>(R.id.rollDiceButton).setOnClickListener{
             ( supportFragmentManager
                 .findFragmentById(R.id.diceContainer) as DieFragment ).throwDie() //it return an object of type fragment(refernce type) to tell the compiler to refernce the diefragment we casting
-        }
+        }*/
 
+    }
+
+    override fun buttonClicked() {
+        ( supportFragmentManager
+            .findFragmentById(R.id.diceContainer) as DieFragment ).throwDie()
     }
 }
